@@ -1,0 +1,242 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --cardHeight: 170px;
+}
+
+body {
+    font-family: sans-serif;
+    height: 100vh;
+    min-height: 900px;
+    background: linear-gradient(to bottom, rgb(47, 102, 47), rgb(35, 77, 35));
+}
+
+main {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    max-width: 1000px;
+    min-width: 918px;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.sup-line,
+.deck-container,
+#sup-fields-container,
+#main-fields-container {
+    display: flex;
+    gap: 10px;
+}
+
+.sup-line {
+    padding-top: 50px;
+    margin-bottom: 100px;
+}
+
+.sup-line,
+#main-fields-container {
+    justify-content: space-between;
+}
+
+#main-fields-container {
+    flex-grow: 1;
+}
+
+#pile,
+.sup-field,
+.main-field {
+    width: 120px;
+    height: var(--cardHeight);
+    border-radius: 6px;
+    background-color: rgb(67, 112, 67);
+}
+
+#pile {
+    position: relative;
+    z-index: 3;
+}
+
+#refuse {
+    width: 120px;
+    position: relative;
+    z-index: 2;
+}
+
+#back-to-pile {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#back-to-pile::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 60px;
+    border: 15px solid rgb(54, 82, 44);
+    border-radius: 50%;
+}
+
+.inf-bar {
+    display: flex;
+    justify-content: flex-end;
+    gap: 50px;
+    padding-bottom: 20px;
+    color: #fff;
+    font-size: 30px;
+    line-height: 30px;
+}
+
+.inf-bar svg,
+.inf-bar span {
+    display: inline-block;
+    vertical-align: middle;
+}
+.inf-bar svg{
+    margin: -5px 5px 0 0;
+    fill: #fff;
+}
+
+.card {
+    position: relative;
+    width: 120px;
+    height: var(--cardHeight);
+    font-size: 20px;
+    font-weight: 600;
+    background-image: url(../img/back.webp);
+    background-color: #fff;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 1px solid #000;
+    border-radius: 6px;
+    box-sizing: border-box;
+    z-index: 2;
+}
+
+.main-field .card:not(:first-child) {
+    margin-top: calc( 12px - var(--cardHeight));
+}
+
+.main-field .card .card{
+    margin-top: 30px;
+}
+
+.sup-field .card .card {
+    margin-top: -1px;
+}
+
+.card .card {
+    margin-left: -1px;
+}
+
+#pile .card,
+#refuse .card:not(:first-child) {
+    margin-top: calc(0px - var(--cardHeight));
+}
+
+.card.active.spades{
+    color: #000;
+    background-image: url(../img/spades.webp)
+}
+
+.card.active.clubs{
+    color: #000;
+    background-image: url(../img/clubs.webp);
+}
+
+.card.active.hearts{
+    color: red;
+    background-image: url(../img/hearts.webp);
+}
+
+.card.active.diamonds{
+    color: red;
+    background-image: url(../img/diamonds.webp);
+}
+
+.card.active::before,
+.card.active::after {
+    opacity: 1;
+}
+
+.card::before,
+.card::after {
+    content: attr(data-display);
+    position: absolute;
+    z-index: 1;
+    opacity: 0;
+}
+
+.card::before {
+    top: 5px;
+    left: 5px;
+}
+
+.card::after {
+    bottom: 5px;
+    right: 5px;
+    transform: rotate(180deg);
+}
+
+.card.moving {
+    margin-left: 130px;
+    transition: margin-left 200ms;
+}
+
+#modal {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    top:0;
+    left: 0;
+    background-color:rgba(0, 0, 0, 0.5);
+    z-index: 5;
+}
+
+#modal .content {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    color: #fff;
+    text-align: center;
+    line-height: 1.5;
+    width: 450px;
+    height: 250px;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: rgb(67, 112, 67);
+    border: 5px solid #fff;
+    border-radius: 10px;
+    z-index: 6;
+    transform: scale(0);
+    transition: transform 200ms;
+}
+
+h1 {
+    font-size: 30px;
+}
+
+button {
+    font-size: 20px;
+    color: rgb(67, 112, 67);
+    font-weight: 600;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+#modal .content.visible {
+    transform: scale(1);
+}
